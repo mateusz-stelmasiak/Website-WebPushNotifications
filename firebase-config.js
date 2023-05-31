@@ -33,5 +33,20 @@ export async function getSnapshot(path,orderBy){
     return items;
 }
 
+export async function getSnapshotWithKey(path,orderBy){
+    let quer = await query(ref(firebaseDb, path)
+        ,(orderBy ? orderByChild(orderBy) : orderByKey())
+    );
+
+    let snapshot = await get(quer);
+    let items =[];
+    snapshot.forEach((snap)=>{
+        items.unshift({'key':snap.key,'data':snap.val()});
+    })
+    //handle single items
+    if(items.length ===0){items = {'key':snapshot.key,'data':snapshot.val()};}
+    return items;
+}
+
 
 

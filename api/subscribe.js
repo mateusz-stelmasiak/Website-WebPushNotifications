@@ -3,7 +3,7 @@ import {
     ref,
     set,
 } from "firebase/database";
-import {firebaseDb} from "../firebase-config";
+import {firebaseDb, getSnapshot} from "../firebase-config";
 const webpush = require('web-push');
 
 webpush.setVapidDetails(
@@ -12,23 +12,44 @@ webpush.setVapidDetails(
     process.env.PRIVATE_VAPID_KEY,
 );
 
-export default function handler(request, response) {
+export default async function handler(request, response) {
     const subscription = request.body;
-    response.status(201).json({});
-    if(!subscription){return;}
+    const userData = request.query;
+    const userName = userData.username;
+    if(!subscription || !userName){
+        return response.status(402).json({"Error":"Missing arguments"});
+    }
 
-    //ADD to DB
+
+    //Check if isn't already subscribed
+    let subscribers = await getSnapshot("/subscribed");
+
+
+    //ADD to DB, with username
+    let dbSubscription = subscription;
+    dbSubscription.username = userName;
     let newItemRef = push(ref(firebaseDb, "/subscribed"));
-    set(newItemRef, subscription);
+    set(newItemRef, dbSubscription);
 
     // Notify user that they have been subscribed
     const payload = JSON.stringify({ title: "Dziękujemy za zapisanie!" ,
-        body:"Dziękujemy za zapisanie się do powiadomień push!",
-        icon: "http://image.ibb.co/frYOFd/tmlogo.png"
+        body:"Dziękujemy za zapisanie się do powiadomień push!"
     });
 
     webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));
+
+    return response.status(201).json({});
 }
+
+function areSubscriptionsEqual(sub1, sub2){
+    if (!sub1 || !sub2) return false;
+
+    return (
+        sub1.endpoint === sub2.endpoint &&
+        sub1.keys.auth === sub2.keys.auth &&
+        sub1.keys.p256dh === sub2.keys.p256dh
+    );
+};
 

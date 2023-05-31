@@ -24,6 +24,8 @@ export default async function handler(request, response) {
     });
 
     subscribers.forEach((subscription)=>{
+        delete subscription.username;
+        
         webpush
             .sendNotification(subscription, payload)
             .catch(err => console.error(err));

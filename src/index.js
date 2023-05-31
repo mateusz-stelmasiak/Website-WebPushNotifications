@@ -7,6 +7,7 @@ import {
 import List from "./pages/list"
 import App from './App';
 import SendNotification from "./pages/sendNotification";
+import ListPage from "./pages/list";
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/list",
-        element: <List/>,
+        element: <ListPage/>,
     },
     {
         path: "/send",

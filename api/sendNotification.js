@@ -1,5 +1,5 @@
-import {push, ref, set,query,orderByChild,orderByKey,get} from "firebase/database";
-import {firebaseDb} from "../firebase-config";
+import {getSnapshot} from "../firebase-config";
+
 const webpush = require('web-push');
 
 webpush.setVapidDetails(
@@ -31,17 +31,4 @@ export default async function handler(request, response) {
     return response.status(200).json({});
 }
 
-async function getSnapshot(path,orderBy){
-    let quer = await query(ref(firebaseDb, path)
-        ,(orderBy ? orderByChild(orderBy) : orderByKey())
-    );
 
-    let snapshot = await get(quer);
-    let items =[];
-    snapshot.forEach((snap)=>{
-        items.unshift(snap.val());
-    })
-    //handle single items
-    if(items.length ===0){items = snapshot.val();}
-    return items;
-}

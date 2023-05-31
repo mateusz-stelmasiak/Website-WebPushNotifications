@@ -25,13 +25,15 @@ async function handler(request, response) {
         body: message.body,
     });
 
-    subscribers.forEach((subscription)=>{
-        delete subscription.username;
-
-        webpush
-            .sendNotification(subscription, payload)
+    for(let i=0;i<subscribers.length;i++){
+        const currSub = subscribers[i];
+        delete currSub.username;
+        console.log("PUSHING")
+        await webpush
+            .sendNotification(currSub, payload)
             .catch(err => console.error(err));
-    })
+    }
+
     return response.status(200).json({});
 }
 

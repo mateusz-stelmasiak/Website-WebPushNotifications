@@ -8,7 +8,7 @@ const usePushNotifications = ()=>{
     const [loading,setLoading] = useState(false);
     const [worker,setWorker] = useState()
 
-    // Register SW, Register Push, Send Push
+
     useEffect(()=>{
         registerSW();
     },[])

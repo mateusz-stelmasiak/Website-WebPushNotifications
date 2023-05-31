@@ -47,7 +47,7 @@ async function handler(request, response) {
         body:"Dziękujemy za zapisanie się do powiadomień push!"
     });
 
-    webpush
+    await webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));
 //

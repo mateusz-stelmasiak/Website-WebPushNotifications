@@ -23,6 +23,14 @@ export default async function handler(request, response) {
 
     //Check if isn't already subscribed
     let subscribers = await getSnapshot("/subscribed");
+    if(subscribers){
+        let duplicate = subscribers.find((iterSub)=>{
+            return areSubscriptionsEqual(iterSub,subscription)
+        })
+        if(duplicate){
+            return response.status(406).json({"Error":"To urządzenie jest już zapisane"});
+        }
+    }
 
 
     //ADD to DB, with username

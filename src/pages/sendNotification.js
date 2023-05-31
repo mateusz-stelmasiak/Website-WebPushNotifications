@@ -4,8 +4,12 @@ import TextArea from "antd/es/input/TextArea";
 
 export default function SendNotification() {
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log('Success:', values);
+        const response = await fetch(
+            process.env.REACT_APP_API_URL+ `/sendNotification?body=${values.body}&title=${values.title}`);
+        const jsonData = await response.json();
+       console.log(jsonData);
     };
 
     const onFinishFailed = (errorInfo) => {

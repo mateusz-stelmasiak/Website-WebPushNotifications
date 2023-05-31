@@ -1,12 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import List from "./pages/list"
 import App from './App';
+import SendNotification from "./pages/sendNotification";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App/>,
+    },
+    {
+        path: "/list",
+        element: <List/>,
+    },
+    {
+        path: "/send",
+        element: <SendNotification/>,
+    },
+]);
+
+ReactDOM.render(
     <React.StrictMode>
-            <App/>
-    </React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>,
+    document.getElementById('root')
 );
-
-

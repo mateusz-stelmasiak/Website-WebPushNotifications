@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import List from "./pages/list"
 import App from './App';
+import SendNotification from "./pages/sendNotification";
 
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         path: "/list",
         element: <List/>,
+    },
+    {
+        path: "/send",
+        element: <SendNotification/>,
     },
 ]);
 

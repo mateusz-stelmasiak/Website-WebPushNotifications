@@ -18,6 +18,6 @@ export default function List(){
     }
 
     return <div>
-        {userNames?.map(user => <div>{user.endpoint}</div>)}
+        {userNames?.map(user => <div>{user}</div>)}
     </div>
 }

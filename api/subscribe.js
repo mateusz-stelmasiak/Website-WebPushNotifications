@@ -22,8 +22,8 @@ export default function handler(request, response) {
     set(newItemRef, subscription);
 
     // Notify user that they have been subscribed
-    const payload = JSON.stringify({ title: "Powiadomienia przez 24H" ,
-        body:"Będziesz dostawał powiadomienia o nowych pokojach do końca dnia!",
+    const payload = JSON.stringify({ title: "Dziękujemy za zapisanie!" ,
+        body:"Dziękujemy za zapisanie się do powiadomień push!",
         icon: "http://image.ibb.co/frYOFd/tmlogo.png"
     });
 

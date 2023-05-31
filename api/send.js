@@ -11,6 +11,7 @@ webpush.setVapidDetails(
 
 
 async function handler(request, response) {
+    //yes
     const message = request.query;
     if(!message?.title || !message.body){
         return response.status(422).json({'Error':"Missing arguments"});

@@ -6,8 +6,20 @@ const usePushNotifications = ()=>{
     const publicVapidKey =
         "BKUCiPCKcs5ER21--Nu-sA5QkUNUKXudDVyrtAmrW-UF38U3H3-VwFDp8LUmW4asBavbXjCqxpqU7fhmJBaPFAQ";
     const [loading,setLoading] = useState(false);
+    const [worker,setWorker] = useState()
 
     // Register SW, Register Push, Send Push
+    useEffect(()=>{
+        registerSW();
+    },[])
+
+    let registerSW = async ()=>{
+        // Register Service Worker
+        const worker = await navigator.serviceWorker.register("/worker.js", {
+            scope: "/"
+        });
+        setWorker(worker);
+    }
     async function register(username) {
         // Check for service worker
         if (!featureAvailable) {
@@ -15,14 +27,11 @@ const usePushNotifications = ()=>{
             return
         }
 
+        if(!worker){await registerSW;}
         setLoading(true);
-        // Register Service Worker
-        const register = await navigator.serviceWorker.register("/worker.js", {
-            scope: "/"
-        });
 
         // Register Push
-        const subscription = await register.pushManager.subscribe({
+        const subscription = await worker.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
         });

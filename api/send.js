@@ -8,6 +8,7 @@ webpush.setVapidDetails(
     process.env.PRIVATE_VAPID_KEY,
 );
 
+
 export default async function handler(request, response) {
     const message = request.query;
     if(!message?.title || !message.body){

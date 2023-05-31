@@ -2,7 +2,7 @@ import './App.css';
 import {useEffect, useRef, useState} from "react";
 import useSecretsAPI from "./useSecretsAPI";
 import usePushNotifications from "./usePushNotifications";
-import { List} from "antd";
+import {Button, List} from "antd";
 import {
     BellOutlined,
     BellFilled,
@@ -81,14 +81,12 @@ function App() {
 
                 <div className={"sectionHeader"}>
                     <div className={"sectionTitle"}>
-                        <h2>POWIADOMIENIA</h2>
+                        <h2>ZAPISZ SIE DO POWIADOMIEŃ</h2>
                         <span>({selectedDate && formatDate(selectedDate)})</span>
                     </div>
-
-
-                    <button className={"pushSubcribe"} onClick={register} disabled={!featureAvailable}>
+                    <Button className={"pushSubcribe"} onClick={register} disabled={!featureAvailable}>
                         <BellOutlined />
-                    </button>
+                    </Button>
                 </div>
             </section>
 

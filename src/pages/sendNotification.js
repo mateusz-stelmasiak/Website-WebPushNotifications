@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import {Button, Checkbox, Form, Input} from 'antd';
+import TextArea from "antd/es/input/TextArea";
 
-export default function SendNotification(){
+export default function SendNotification() {
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -13,40 +14,38 @@ export default function SendNotification(){
 
 
     return <div>
-        TUTAJ SEND NOTIFICATION
-        <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
-            <Form.Item
-                style={{color:"white"}}
-                label={<label style={{ color: "white" }}>Tytuł</label>}
-                name="title"
-                rules={[{ required: true, message: 'tytuł nie może być pusty' }]}
+        <div style={{fontSize:32,textAlign:"center",marginBottom:40, marginTop:100}}>SEND NOTIFICATION</div>
+            <Form
+                layout={"vertical"}
+                name="basic"
+                style={{maxWidth: 600, marginLeft:"auto",marginRight:"auto"}}
+                initialValues={{remember: true}}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
             >
-                <Input />
-            </Form.Item>
+                <Form.Item
+                    style={{color: "white"}}
+                    label={<label style={{color: "white"}}>Tytuł</label>}
+                    name="title"
+                    rules={[{required: true, message: 'tytuł nie może być pusty'}]}
+                >
+                    <Input/>
+                </Form.Item>
 
-            <Form.Item
-                label={<label style={{ color: "white" }}>Wiadomość</label>}
-                name="body"
-                rules={[{ required: true, message: 'wiadomość nie może być pusta' }]}
-            >
-                <Input />
-            </Form.Item>
+                <Form.Item
+                    label={<label style={{color: "white"}}>Wiadomość</label>}
+                    name="body"
+                    rules={[{required: true, message: 'wiadomość nie może być pusta'}]}
+                >
+                    <TextArea/>
+                </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
-                    Wyślij
-                </Button>
-            </Form.Item>
-        </Form>
-
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Wyślij
+                    </Button>
+                </Form.Item>
+            </Form>
     </div>
 }

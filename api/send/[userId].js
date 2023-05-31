@@ -30,7 +30,7 @@ async function handler(request, response) {
         body: message.body,
     });
 
-    webpush
+    await webpush
         .sendNotification(recipientSubscription, payload)
         .catch(err => console.error(err));
 

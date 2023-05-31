@@ -20,8 +20,8 @@ function App() {
 
     return (
         <Spin spinning={loading}>
-                <section>
-                    <h1>ZAPISZ SIE DO POWIADOMIEŃ</h1>
+            <div style={{width: "100%"}}>
+                <div style={{fontSize: 40, textAlign: "center", marginBottom: 40, marginTop: 100,fontFamily:"Orbitron"}}>Otrzymuj powiadomienia push</div>
 
                     <Form
                         layout={"vertical"}
@@ -48,7 +48,7 @@ function App() {
                         </Form.Item>
                     </Form>
 
-                </section>
+                </div>
 
         </Spin>
     );

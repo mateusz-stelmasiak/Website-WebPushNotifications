@@ -47,7 +47,7 @@ export default async function handler(request, response) {
     webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));
-
+//
     return response.status(201).json({});
 }
 

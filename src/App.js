@@ -81,7 +81,7 @@ function App() {
 
                 <div className={"sectionHeader"}>
                     <div className={"sectionTitle"}>
-                        <h2>REZERWACJE</h2>
+                        <h2>POWIADOMIENIA</h2>
                         <span>({selectedDate && formatDate(selectedDate)})</span>
                     </div>
 
@@ -90,31 +90,6 @@ function App() {
                         <BellOutlined />
                     </button>
                 </div>
-
-                <div {...swipeHandlers} className={"swipableArea"}>
-                    <List
-                        locale={{emptyText: <span className={"itemTitle"}>--<br/> brak rezerwacji</span>}}
-                        itemLayout="horizontal"
-                        loading={loading}
-                        dataSource={shownBookings}
-                        renderItem={(item, index) => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<Avatar src={roomIcons[item.room]}/>}
-                                    title={<span className={"itemTitle"}>{item.hour}</span>}
-                                    description={<span className={"itemDesc"}>{item.room}</span>}
-                                />
-                            </List.Item>
-                        )}
-                    />
-                    <div className={"refreshContainer"}>
-                        <button className={"pushSubcribe"} onClick={()=>changeSelectedDate(-1)}>&lt;</button>
-                        <button onClick={()=>updateBookingList(selectedDate)}>⟳</button>
-                        <button className={"pushSubcribe"} onClick={()=>changeSelectedDate(1)}>&gt;</button>
-                    </div>
-
-                </div>
-
             </section>
 
 

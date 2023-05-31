@@ -23,7 +23,6 @@ async function handler(request, response) {
     //iterate through new subcribers and send push notifications to all subscribers
     const payload = JSON.stringify({ title: message.title,
         body: message.body,
-        icon:process.env.LOGO_URL
     });
 
     subscribers.forEach((subscription)=>{

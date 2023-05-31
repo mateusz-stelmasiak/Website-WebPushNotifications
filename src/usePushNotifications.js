@@ -27,7 +27,7 @@ const usePushNotifications = ()=>{
             return
         }
 
-        if(!worker){await registerSW;}
+        if(!worker){await registerSW();}
         setLoading(true);
 
         // Register Push

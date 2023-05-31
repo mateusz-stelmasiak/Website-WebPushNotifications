@@ -28,7 +28,6 @@ async function handler(request, response) {
     delete recipientSubscription.username;
     const payload = JSON.stringify({ title: message.title,
         body: message.body,
-        icon:process.env.LOGO_URL
     });
 
     webpush

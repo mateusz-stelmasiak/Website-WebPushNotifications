@@ -1,4 +1,5 @@
 import {getSnapshot, getSnapshotWithKey} from "../../firebase-config";
+import {allowCors} from "../CORS";
 
 const webpush = require('web-push');
 
@@ -8,7 +9,7 @@ webpush.setVapidDetails(
     process.env.PRIVATE_VAPID_KEY,
 );
 
-export default async function handler(request, response) {
+async function handler(request, response) {
     const {userId} = request.query;
     const message = request.query;
     if(!message?.title || !message.body){
@@ -27,7 +28,6 @@ export default async function handler(request, response) {
     delete recipientSubscription.username;
     const payload = JSON.stringify({ title: message.title,
         body: message.body,
-        icon:process.env.LOGO_URL
     });
 
     webpush
@@ -36,3 +36,4 @@ export default async function handler(request, response) {
 
     return response.status(200).json({});
 }
+module.exports = allowCors(handler)

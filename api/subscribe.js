@@ -4,6 +4,7 @@ import {
     set,
 } from "firebase/database";
 import {firebaseDb, getSnapshot} from "../firebase-config";
+import {allowCors} from "./CORS";
 const webpush = require('web-push');
 
 webpush.setVapidDetails(
@@ -12,7 +13,9 @@ webpush.setVapidDetails(
     process.env.PRIVATE_VAPID_KEY,
 );
 
-export default async function handler(request, response) {
+
+
+async function handler(request, response) {
     const subscription = request.body;
     const userData = request.query;
     const userName = userData.username;
@@ -47,9 +50,11 @@ export default async function handler(request, response) {
     webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));
-
+//
     return response.status(201).json({});
 }
+
+module.exports = allowCors(handler)
 
 function areSubscriptionsEqual(sub1, sub2){
     if (!sub1 || !sub2) return false;

@@ -1,7 +1,8 @@
 import {getSnapshot, getSnapshotWithKey} from "../firebase-config";
+import {allowCors} from "./CORS";
 
 
-export default async function handler(request, response) {
+async function handler(request, response) {
     //Get list of all subscribed web push endpoints
     const subscribers = await getSnapshotWithKey("/subscribed")
     if(!subscribers) return response.status(200).json({});
@@ -11,3 +12,4 @@ export default async function handler(request, response) {
     })
     return response.status(200).json(usernames);
 }
+module.exports = allowCors(handler)

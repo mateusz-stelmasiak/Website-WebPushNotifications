@@ -20,9 +20,8 @@ function App() {
 
     return (
         <Spin spinning={loading}>
-
                 <section>
-                    <h1> ZAPISZ SIE DO POWIADOMIEŃ </h1>
+                    <h1>ZAPISZ SIE DO POWIADOMIEŃ</h1>
 
                     <Form
                         layout={"vertical"}

@@ -5,7 +5,7 @@ export default async function handler(request, response) {
     //Get list of all subscribed web push endpoints
     const subscribers = await getSnapshotWithKey("/subscribed")
     if(!subscribers) return response.status(200).json({});
-    
+
     const usernames = subscribers?.map((subscriber)=>{
         return {'id':subscriber.key ,'username':subscriber.data.username}
     })

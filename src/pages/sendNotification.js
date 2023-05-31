@@ -7,7 +7,7 @@ export default function SendNotification() {
     const onFinish = async (values) => {
         console.log('Success:', values);
         const response = await fetch(
-            process.env.REACT_APP_API_URL+ `/sendNotification?body=${values.body}&title=${values.title}`);
+            process.env.REACT_APP_API_URL+ `/send?body=${values.body}&title=${values.title}`);
         const jsonData = await response.json();
        console.log(jsonData);
     };

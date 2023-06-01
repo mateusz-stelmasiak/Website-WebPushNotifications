@@ -21,19 +21,20 @@ function App() {
     return (
         <Spin spinning={loading}>
             <div style={{padding:"2rem "}}>
-                <div style={{
-                    fontSize: 40,
-                    textAlign: "center",
-                    marginBottom: 40,
-                    fontFamily: "Orbitron"
-                }}>Otrzymuj powiadomienia
+                <div>
+                    <h1>
+                        Get push notifications
+                    </h1>
+                    <p>
+                        <i>Push</i> the button to get <i>Push</i> notifications
+                    </p>
                 </div>
 
 
                 <Form
                     layout={"vertical"}
                     name="basic"
-                    style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto"}}
+                    style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto",marginTop:"3rem"}}
                     initialValues={{remember: true}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
@@ -41,16 +42,16 @@ function App() {
                 >
                     <Form.Item
                         style={{color: "white"}}
-                        label={<label style={{color: "white"}}>Nazwa użytkownika</label>}
+                        label={<label style={{color: "white"}}>Username</label>}
                         name="username"
-                        rules={[{required: true, message: 'musisz wybrać nazwę użytkownika'}]}
+                        rules={[{required: true, message: 'you must choose a username'}]}
                     >
                         <Input/>
                     </Form.Item>
 
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            Zapisz mnie
+                            Sign me up
                         </Button>
                     </Form.Item>
                 </Form>

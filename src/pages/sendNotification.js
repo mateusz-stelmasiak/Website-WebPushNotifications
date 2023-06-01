@@ -18,7 +18,7 @@ export default function SendNotification() {
 
 
     return <div>
-        <div style={{fontSize:32,textAlign:"center",marginBottom:40, marginTop:100}}>SEND NOTIFICATION</div>
+        <div style={{fontSize:32,textAlign:"center",marginBottom:40}}>SEND NOTIFICATION</div>
             <Form
                 layout={"vertical"}
                 name="basic"

@@ -61,7 +61,7 @@ export default function ListPage() {
     };
 
     return <div style={{width: "100%"}}>
-        <div style={{fontSize: 32, textAlign: "center", marginBottom: 40, marginTop: 100}}>User List</div>
+        <div style={{fontSize: 32, textAlign: "center", marginBottom: 40}}>User List</div>
         <Spin spinning={loading}>
         <List
             style={{maxWidth: 500, marginLeft: "auto", marginRight: "auto"}}

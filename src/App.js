@@ -20,35 +20,42 @@ function App() {
 
     return (
         <Spin spinning={loading}>
-            <div style={{width: "100%"}}>
-                <div style={{fontSize: 40, textAlign: "center", marginBottom: 40, marginTop: 100,fontFamily:"Orbitron"}}>Otrzymuj powiadomienia push</div>
-
-                    <Form
-                        layout={"vertical"}
-                        name="basic"
-                        style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto"}}
-                        initialValues={{remember: true}}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
-                    >
-                        <Form.Item
-                            style={{color: "white"}}
-                            label={<label style={{color: "white"}}>Nazwa użytkownika</label>}
-                            name="username"
-                            rules={[{required: true, message: 'musisz wybrać nazwę użytkownika'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Zapisz mnie
-                            </Button>
-                        </Form.Item>
-                    </Form>
-
+            <div style={{padding:"2rem "}}>
+                <div style={{
+                    fontSize: 40,
+                    textAlign: "center",
+                    marginBottom: 40,
+                    fontFamily: "Orbitron"
+                }}>Otrzymuj powiadomienia
                 </div>
+
+
+                <Form
+                    layout={"vertical"}
+                    name="basic"
+                    style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto"}}
+                    initialValues={{remember: true}}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        style={{color: "white"}}
+                        label={<label style={{color: "white"}}>Nazwa użytkownika</label>}
+                        name="username"
+                        rules={[{required: true, message: 'musisz wybrać nazwę użytkownika'}]}
+                    >
+                        <Input/>
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Zapisz mnie
+                        </Button>
+                    </Form.Item>
+                </Form>
+
+            </div>
 
         </Spin>
     );

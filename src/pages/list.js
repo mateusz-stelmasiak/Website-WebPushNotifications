@@ -98,7 +98,7 @@ export default function ListPage() {
                     )}
                 />
                 <Button type={"primary"} loading={loading || initLoading} disabled={loading || initLoading}
-                        style={{marginTop:27}}> Wyślij do zaznaczonych</Button>
+                        style={{marginTop:27, float:"right"}}> Wyślij do zaznaczonych</Button>
             </div>
         </Spin>
 

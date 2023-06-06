@@ -37,7 +37,7 @@ const usePushNotifications = ()=>{
         });
 
 
-        await fetch(`${process.env.REACT_APP_API_URL}/subscribe?username=${username}`, {
+        let resp = await fetch(`${process.env.REACT_APP_API_URL}/subscribe?username=${username}`, {
             method: "POST",
             body: JSON.stringify(subscription),
             headers: {
@@ -45,6 +45,7 @@ const usePushNotifications = ()=>{
             }
         });
         setLoading(false);
+        return resp;
     }
 
     function urlBase64ToUint8Array(base64String) {

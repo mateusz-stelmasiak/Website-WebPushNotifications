@@ -11,6 +11,7 @@ export default function ListPage() {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentUserId, setCurrentUserId] = useState(undefined);
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
     const handleOk = () => {
         setIsModalOpen(false);
@@ -60,6 +61,14 @@ export default function ListPage() {
         console.log('Failed:', errorInfo);
     };
 
+    const onCheckboxChange = (e, item) => {
+        if(e.target.checked){
+            setSelectedUsers([...selectedUsers,item]);
+        }else{
+            setSelectedUsers(selectedUsers.filter(el => el !== item))
+        }
+    }
+
     return <div style={{width: "100%"}}>
         <div style={{fontSize: 32, textAlign: "center", marginBottom: 40}}>User List</div>
         <Spin spinning={loading}>
@@ -72,6 +81,7 @@ export default function ListPage() {
                 <List.Item actions={[<DeleteOutlined onClick={() => onDeleteClick(item.id)} style={{color: "white", fontSize: 24, cursor:"pointer"}}/>,
                     <MailOutlined onClick={() => onSendClick(item.id)} style={{color: "white", fontSize: 24, cursor:"pointer"}}/>]}>
                     <List.Item.Meta
+                        avatar={<Checkbox style={{height:"100%"}} onChange={(e) => onCheckboxChange(e, item)}/>}
                         title={<a className={"userListItem"} href="https://ant.design">{item.username}</a>}
                     />
                 </List.Item>

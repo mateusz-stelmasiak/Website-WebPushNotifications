@@ -19,11 +19,12 @@ async function handler(request, response) {
     let subscribers = await getSnapshotWithKey("/subscribed");
 
     let recipientSubscription = subscribers?.find((subscriber)=>{
-        return subscriber.key =userId;
+        return subscriber.key ===userId;
     })
     if(!recipientSubscription){
         return response.status(400).json({"Error":"User not found"});
     }
+
     recipientSubscription = recipientSubscription.data;
     delete recipientSubscription.username;
     const payload = JSON.stringify({ title: message.title,

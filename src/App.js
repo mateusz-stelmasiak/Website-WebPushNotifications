@@ -34,7 +34,7 @@ function App() {
             {featureAvailable
                 ? <Spin spinning={loading}>
             <div style={{padding:"2rem "}}>
-                <div>
+                <div className={"headerContainer"}>
                     <h1>
                         Get push notifications
                     </h1>
@@ -47,7 +47,7 @@ function App() {
                 <Form
                     layout={"vertical"}
                     name="basic"
-                    style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto",marginTop:"3rem"}}
+                    style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto"}}
                     initialValues={{remember: true}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}

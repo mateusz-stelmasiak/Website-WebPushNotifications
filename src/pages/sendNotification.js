@@ -1,15 +1,28 @@
 import React from 'react';
-import {Button, Checkbox, Form, Input} from 'antd';
+import {Button, Checkbox, Form, Input, message} from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
 export default function SendNotification() {
+    const [messageApi, contextHolder] = message.useMessage();
 
     const onFinish = async (values) => {
         console.log('Success:', values);
         const response = await fetch(
-            process.env.REACT_APP_API_URL+ `/send?body=${values.body}&title=${values.title}`);
+            process.env.REACT_APP_API_URL + `/send?body=${values.body}&title=${values.title}`);
         const jsonData = await response.json();
-       console.log(jsonData);
+
+        if(!response.ok){
+            //display error
+            messageApi.open({
+                type: 'error',
+                content: jsonData.Error,
+            });
+            return;
+        }
+        messageApi.open({
+            type: 'success',
+            content: "Your message has been sent!",
+        });
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -17,39 +30,55 @@ export default function SendNotification() {
     };
 
 
-    return <div>
-        <div style={{fontSize:32,textAlign:"center",marginBottom:40}}>SEND NOTIFICATION</div>
-            <Form
-                layout={"vertical"}
-                name="basic"
-                style={{maxWidth: 600, marginLeft:"auto",marginRight:"auto"}}
-                initialValues={{remember: true}}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
+    return <div style={{padding: "2rem"}}>
+        {contextHolder}
+        <div className={"headerContainer"}>
+            <h1>
+                Notify EVERYONE
+            </h1>
+            <p>
+                Send notifications to <b>all</b> registered users
+            </p>
+        </div>
+
+        <Form
+            layout={"vertical"}
+            name="basic"
+            style={{maxWidth: 600, marginLeft: "auto", marginRight: "auto"}}
+            initialValues={{remember: true}}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+        >
+            <Form.Item
+                style={{color: "white"}}
+                label={<label style={{color: "white"}}>Title</label>}
+                name="title"
+                rules={[{required: true, message: 'the title cannot be empty'}]}
             >
-                <Form.Item
-                    style={{color: "white"}}
-                    label={<label style={{color: "white"}}>Tytuł</label>}
-                    name="title"
-                    rules={[{required: true, message: 'tytuł nie może być pusty'}]}
-                >
-                    <Input/>
-                </Form.Item>
+                <Input
+                    showCount={true}
+                    maxLength={63}
+                />
+            </Form.Item>
 
-                <Form.Item
-                    label={<label style={{color: "white"}}>Wiadomość</label>}
-                    name="body"
-                    rules={[{required: true, message: 'wiadomość nie może być pusta'}]}
-                >
-                    <TextArea/>
-                </Form.Item>
+            <Form.Item
+                label={<label style={{color: "white"}}>Message</label>}
+                name="body"
+                rules={[{required: true, message: 'the message cannot be empty'}]}
 
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Wyślij
-                    </Button>
-                </Form.Item>
-            </Form>
+            >
+                <TextArea
+                    showCount={true}
+                    maxLength={128}
+                />
+            </Form.Item>
+
+            <Form.Item>
+                <Button type="primary" htmlType="submit">
+                    Send to all
+                </Button>
+            </Form.Item>
+        </Form>
     </div>
 }

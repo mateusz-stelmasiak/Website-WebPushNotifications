@@ -11,3 +11,7 @@
     border: 1px solid white;
         border-block-end: 1px solid white!important;
 }
+
+.ant-list-item-meta{
+    align-items: center!important;
+}

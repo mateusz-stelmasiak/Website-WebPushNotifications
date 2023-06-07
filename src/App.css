@@ -49,3 +49,7 @@ main h1{
 .ant-input-data-count{
   color: whitesmoke !important;
 }
+
+.ant-modal-body .ant-input-data-count{
+  color: #3d3d3d !important;
+}

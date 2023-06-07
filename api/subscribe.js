@@ -31,7 +31,7 @@ async function handler(request, response) {
             return areSubscriptionsEqual(iterSub,subscription)
         })
         if(duplicate){
-            return response.status(406).json({"Error":"To urządzenie jest już zapisane"});
+            return response.status(406).json({"Error":"This device is already registered"});
         }
     }
 
@@ -43,8 +43,8 @@ async function handler(request, response) {
     set(newItemRef, dbSubscription);
 
     // Notify user that they have been subscribed
-    const payload = JSON.stringify({ title: "Dziękujemy za zapisanie!" ,
-        body:"Dziękujemy za zapisanie się do powiadomień push!"
+    const payload = JSON.stringify({ title: "Thanks for signing up!" ,
+        body:"You will now get our push notifications!"
     });
 
     await webpush

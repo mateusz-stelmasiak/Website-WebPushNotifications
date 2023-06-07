@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {DeleteOutlined, MailOutlined} from "@ant-design/icons";
 import {Button, Checkbox, Form, Input, Modal, Spin, List} from 'antd';
 import "./list.css"
@@ -11,6 +11,7 @@ export default function ListPage() {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentUserId, setCurrentUserId] = useState(undefined);
+    const [currUsername,setCurrUsername] = useState(undefined)
     const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -45,9 +46,10 @@ export default function ListPage() {
         setLoading(false);
     }
 
-    const onSendClick = async (id) => {
+    const onSendClick = async (id,username) => {
         setIsModalOpen(true);
         setCurrentUserId(id);
+        setCurrUsername(username);
     }
 
     const onFinish = async (values) => {
@@ -82,7 +84,11 @@ export default function ListPage() {
     }
 
     return <div style={{width: "100%"}}>
-        <div style={{fontSize: 32, textAlign: "center", marginBottom: 40}}>User List</div>
+        <div className={"headerContainer"}>
+            <h1>
+                Registered users
+            </h1>
+        </div>
         <Spin spinning={loading}>
             <div style={{maxWidth: 500, marginLeft: "auto", marginRight: "auto"}}>
 
@@ -94,25 +100,25 @@ export default function ListPage() {
                     renderItem={(item, index) => (
                         <List.Item actions={[<DeleteOutlined onClick={() => onDeleteClick(item.id)} style={{
                             color: "white",
-                            fontSize: 24,
+                            fontSize: 20,
                             cursor: "pointer"
                         }}/>,
-                            <MailOutlined onClick={() => onSendClick(item.id)}
-                                          style={{color: "white", fontSize: 24, cursor: "pointer"}}/>]}>
+                            <MailOutlined onClick={() => onSendClick(item.id,item.username)}
+                                          style={{color: "white", fontSize: 20, cursor: "pointer"}}/>]}>
                             <List.Item.Meta
                                 avatar={<Checkbox style={{height: "100%"}}
                                                   onChange={(e) => onCheckboxChange(e, item)}/>}
-                                title={<a className={"userListItem"} href="https://ant.design">{item.username}</a>}
+                                title={<span className={"userListItem"}>{item.username}</span>}
                             />
                         </List.Item>
                     )}
                 />
-                <Button onClick={() => setIsModalTwoOpen(true)} type={"primary"} loading={loading || initLoading} disabled={loading || initLoading}
-                        style={{marginTop:27, float:"right"}}> Wyślij do zaznaczonych</Button>
+                <Button onClick={() => setIsModalTwoOpen(true)} type={"primary"} loading={loading || initLoading} disabled={loading || initLoading || selectedUsers.length===0}
+                        style={{marginTop:27, float:"right"}}> Send to selected</Button>
             </div>
         </Spin>
 
-        <Modal title="Wyślij wiadomość" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+        <Modal title={`Send to selected user`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
             <Form
                 layout={"vertical"}
                 name="basic"
@@ -124,30 +130,36 @@ export default function ListPage() {
             >
                 <Form.Item
                     style={{color: "white"}}
-                    label={<label style={{color: "black"}}>Tytuł</label>}
+                    label={<label style={{color: "black"}}>Title</label>}
                     name="title"
-                    rules={[{required: true, message: 'tytuł nie może być pusty'}]}
+                    rules={[{required: true, message: 'the title cannot be empty'}]}
                 >
-                    <Input/>
+                    <Input
+                        showCount={true}
+                        maxLength={63}
+                    />
                 </Form.Item>
 
                 <Form.Item
-                    label={<label style={{color: "black"}}>Wiadomość</label>}
+                    label={<label style={{color: "black"}}>Message</label>}
                     name="body"
-                    rules={[{required: true, message: 'wiadomość nie może być pusta'}]}
+                    rules={[{required: true, message: 'the message cannot be empty'}]}
                 >
-                    <TextArea/>
+                    <TextArea
+                        showCount={true}
+                        maxLength={128}
+                    />
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
-                        Wyślij
+                        Send to "{currUsername}"
                     </Button>
                 </Form.Item>
             </Form>
         </Modal>
 
-        <Modal title="Wyślij do zaznaczonych" open={isModalTwoOpen} onOk={() =>setIsModalTwoOpen(false)} onCancel={() => setIsModalTwoOpen(false)} footer={null}>
+        <Modal title="Send to selected users" open={isModalTwoOpen} onOk={() =>setIsModalTwoOpen(false)} onCancel={() => setIsModalTwoOpen(false)} footer={null}>
             <Form
                 layout={"vertical"}
                 name="basic"
@@ -158,24 +170,29 @@ export default function ListPage() {
             >
                 <Form.Item
                     style={{color: "white"}}
-                    label={<label style={{color: "black"}}>Tytuł</label>}
+                    label={<label style={{color: "black"}}>Title</label>}
                     name="title"
-                    rules={[{required: true, message: 'tytuł nie może być pusty'}]}
+                    rules={[{required: true, message: 'the title cannot be empty'}]}
                 >
-                    <Input/>
+                    <Input
+                        showCount={true}
+                        maxLength={63}
+                    />
                 </Form.Item>
 
                 <Form.Item
-                    label={<label style={{color: "black"}}>Wiadomość</label>}
+                    label={<label style={{color: "black"}}>Message</label>}
                     name="body"
-                    rules={[{required: true, message: 'wiadomość nie może być pusta'}]}
+                    rules={[{required: true, message: 'the message cannot be empty'}]}
                 >
-                    <TextArea/>
+                    <TextArea
+                        showCount={true}
+                        maxLength={128}/>
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">
-                        Wyślij
+                        Send to {selectedUsers.length} users
                     </Button>
                 </Form.Item>
             </Form>

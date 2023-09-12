@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+# Website-WebPushNotifications
+A web-app that allows users to sign up for push notifications on their device. Build together with [@wojciech-mazurowski]() as a final project for e-marketing class.
+
+## Screenshots
+![screencapture-empush-vercel-app-2023-09-12-15_34_39](https://github.com/mateusz-stelmasiak/EMPushNotifications/assets/46268673/5cdb422c-c540-45a2-be7b-53f975a3baaf)
+![screencapture-empush-vercel-app-send-2023-09-12-15_35_11 (1)](https://github.com/mateusz-stelmasiak/EMPushNotifications/assets/46268673/0cb99ecd-6e1f-4224-9576-23cf932de2d9)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
